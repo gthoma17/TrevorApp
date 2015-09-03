@@ -1,0 +1,4 @@
+[Google]
+GitkitJSON=gitkit-server-config.json
+[Backend]
+url=http://localhost:9001

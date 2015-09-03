@@ -1,0 +1,7 @@
+{
+  "clientId": "710645796562-ve9io6n2mnuke0r3jvepnrp9g078r99a.apps.googleusercontent.com",
+  "serviceAccountEmail": "710645796562-u3prerj5orguednrjb6v4v07v5a3i2rq@developer.gserviceaccount.com",
+  "serviceAccountPrivateKeyFile": "C:\\Users\\imigat0\\src\\TrevorsApp\\Backend\\Trevor's App-dd8f3e1f1de3.p12",
+  "widgetUrl": "http://localhost:8080/login",
+  "cookieName": "gtoken"
+}

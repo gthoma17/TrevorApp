@@ -1,0 +1,8 @@
+[Database]
+name=jobapp
+user=root
+password=
+host=localhost
+port=3306
+[Google]
+GitkitJSON=gitkit-server-config.json
