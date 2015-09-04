@@ -9,6 +9,10 @@ $def with (title, text)
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link type=text/css rel=stylesheet href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
 
+<style type="text/css">
+
+</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//www.gstatic.com/authtoolkit/js/gitkit.js"></script>
@@ -25,21 +29,20 @@ $def with (title, text)
 <title>Trevor's App</title>
 
 </head>
-<body>
-<div class="containter-fluid">
-	<div class="row"  style="background-color:lavender;">
-		<div class="col-sm-12" style="z-index:255;height:65px;"><div id="navbar" style="vertical-align:middle;"></div>
-		<!--<div id="navbar" style="float:right;position:relative;right:15px"></div>-->
+<body style="background-color:lavender;">
+<div class="containter">
+	<div class="row">
+		<div class="col-sm-2" style="z-index:255;height:65px;"><div id="navbar" style="vertical-align:middle;"></div></div>
+		<div class="col-sm-8"><h1 style="text-align:center;">Whoops...</h1></div>
+		<div class="col-sm-2"><h3 style="text-align:center;">&nbsp;</h3></div>
 	</div>
 </div>
 <div class="containter">
-	<div class="row" style="background-color:lavender;">
-		<div class="col-sm-2">&nbsp;</div>
-		<div class="col-sm-10"><h1>$title</h1></div>
+	<div class="row">
+		<div class="col-sm-12"><h1 style="padding:5px;">$title</h1></div>
 	</div>
-	<div class="row" style="background-color:lavender;">
-		<div class="col-sm-2">&nbsp;</div>
-		<div class="col-sm-10"><p>$:text</p></div>
+	<div class="row">
+		<div class="col-sm-12"><p style="padding:5px;">$:text</p></div>
 	</div>
 </div>
 </body>

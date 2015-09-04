@@ -8,6 +8,17 @@ $def with (title, text)
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link type=text/css rel=stylesheet href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
+<style type="text/css">
+	div{
+		text-align: center;
+	}
+	.scaled{
+		-ms-transform: scale(3,3); /* IE 9 */
+    	-webkit-transform: scale(3,3); /* Safari */
+    	transform: scale(3,3);
+	}
+</style>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -25,21 +36,18 @@ $def with (title, text)
 <title>Trevor's App</title>
 
 </head>
-<body>
-<div class="containter-fluid">
-	<div class="row"  style="background-color:lavender;">
-		<div class="col-sm-12" style="z-index:255;height:65px;"><div id="navbar" style="vertical-align:middle;"></div>
-		<!--<div id="navbar" style="float:right;position:relative;right:15px"></div>-->
-	</div>
-</div>
+<body style="background-color:lavender;">
 <div class="containter">
-	<div class="row" style="background-color:lavender;">
-		<div class="col-sm-2">&nbsp;</div>
-		<div class="col-sm-10"><h1>$title</h1></div>
+	<div class="row">
+		<div class="col-sm-12"><h1>$title</h1></div>
 	</div>
-	<div class="row" style="background-color:lavender;">
-		<div class="col-sm-2">&nbsp;</div>
-		<div class="col-sm-10"><p>$:text</p></div>
+	<div class="row">
+		<div class="col-sm-12"><p>$:text</p></div>
+	</div>
+<div class="containter-fluid">
+	<div class="row">
+		<div class="col-sm-12" style="z-index:255;"><div id="navbar" class="scaled" style="vertical-align:middle;"></div></div>
+		<!--<div id="navbar" style="float:right;position:relative;right:15px"></div>-->
 	</div>
 </div>
 </body>

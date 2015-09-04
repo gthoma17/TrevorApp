@@ -1,7 +1,4 @@
-import MySQLdb 
-import csv
-import sys
-import ConfigParser
+import MySQLdb, string, random, csv, sys, ConfigParser
 
 
 
@@ -91,16 +88,19 @@ def createUsersTbl(cursor):
 	  email TEXT(65535) NOT NULL,
 	  isInTable BOOLEAN,
 	  isAdmin BOOLEAN,
+	  apiKey TEXT(256),
 	  PRIMARY KEY(id)
 	)
 	""")
 	#add Greg's account. Becasue without atlease 1 admin we can't add anyone else.
-	cursor.execute("""
+	apiKey = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(256))
+	addGreg = """
 	INSERT INTO jobAppUsers
-		(id, name, title, email, isInTable, isAdmin)
+		(id, name, title, email, isInTable, isAdmin, apiKey)
     VALUES
-    	(NULL, 'Greg', 'SWE', 'gatlp9@gmail.com', 1, 1)
-	""")
+    	(NULL, 'Greg', 'SWE', 'gatlp9@gmail.com', 1, 1, {0})
+	"""
+	cursor.execute(addGreg.format(sanitize(apiKey)))
 
 def tblExists(name, cursor):
 	search_tbl = "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = {0}"
