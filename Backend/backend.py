@@ -6,16 +6,11 @@ from identitytoolkit import gitkitclient
 config = ConfigParser.ConfigParser()
 config.read("backend.cfg")
 
-gitkit_config_json = path.join(path.dirname(path.realpath(__file__)), config.get("Google", "GitkitJSON"))
-gitkit_instance = gitkitclient.GitkitClient.FromConfigFile(gitkit_config_json)
-
-
-
 urls = (
 	"/", "index",
 	"/user/(.*)", "user",
 	)
-render = web.template.render('templates/')
+
 app = web.application(urls, globals())
 db = web.database(dbn='mysql', host=config.get("Database", "host"), port=int(config.get("Database", "port")), user=config.get("Database", "user"), pw=config.get("Database", "password"), db=config.get("Database", "name"))
 
