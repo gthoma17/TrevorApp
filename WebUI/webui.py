@@ -1,4 +1,4 @@
-import web, ConfigParser, json, sys, urllib, requests
+import web, ConfigParser, json, sys, urllib, requests, tempfile
 from os import path
 from identitytoolkit import gitkitclient
 
@@ -6,11 +6,11 @@ from identitytoolkit import gitkitclient
 config = ConfigParser.ConfigParser()
 config.read("webui.cfg")
 
-gitkit_config_json = path.join(path.dirname(path.realpath(__file__)), config.get("Google", "GitkitJSON"))
+gitkit_config_json = config.get("Google", "GitkitJSON")
 gitkit_instance = gitkitclient.GitkitClient.FromConfigFile(gitkit_config_json)
 
 web.config.debug = True
-debug = False
+debug = True
 
 urls = (
 	"/", "index",
@@ -20,12 +20,9 @@ urls = (
 	"/admin","admin"
 	)
 render = web.template.render('templates/')
-#app = web.application(urls, globals())
 app = web.application(urls, globals())
 
 apiUrl = config.get("Backend", "url")
-#session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': None})
-
 
 # Hack to make session play nice with the reloader (in debug mode)
 if web.config.get('_session') is None:
@@ -57,7 +54,7 @@ class index:
 			title = "Are you sure you work here?"
 			return render.unregistered(title, text)
 		elif session.user['state'] == None:
-			text = "Please hit the button below!" 
+			text = "" 
 			if debug:
 				text += "Here is your session info: "  + str(session.user)
 			title = "Welcome, Stranger!"
@@ -83,10 +80,8 @@ class logout:
 class dashboard:
 	def GET(self):
 		if not userAuthed(session.user):
-			print "unauthed"
 			session.user['redirect'] = web.ctx.path
 			raise web.seeother('/')
-		#print web.ctx.path[1:]
 		text = "You are a registered user "
 		adminLink = " "
 		if session.user['isAdmin']:
@@ -108,9 +103,11 @@ class admin:
             size=30,
             description="Job Title:"),
         web.form.Checkbox('isAdmin',
-        	description="Is User an Admin?"),
+        	description="Is User an Admin?",
+        	value="userIsAdmin"),
         web.form.Button('Add/Update User'),
     )
+
 	def GET(self):
 		if not userAuthed(session.user) or not userIsAdmin(session.user):
 			raise web.seeother('/')
@@ -125,12 +122,10 @@ class admin:
 		if not form.validates():
 			return render.admin("Form validation failed", self.form)
 		user_form = dict(form.d)
-		print "user_form['isAdmin'] = " + str(user_form['isAdmin']) + "\n type: " + str(type(user_form['isAdmin']))
 		if user_form['isAdmin'] == True:
 			user_form['isAdmin'] = "True"
 		else:
 			user_form['isAdmin'] = "False"
-		print "user_form['isAdmin'] = " + str(user_form['isAdmin']) + "\n type: " + str(type(user_form['isAdmin']))
 		user_form['apiKey'] = session.user['apiKey']
 		apiRequest = requests.post(apiUrl+"/user/"+user_form['email'], data=user_form)
 		session.user['apiResponse'] = apiRequest.text
@@ -155,10 +150,8 @@ def makeUserSession(gVars):
 	#try to ask backend for this user's info
 	response = urllib.urlopen(apiUrl+"/user/"+gVars['email']).read()
 	if response[0:3] != '404':
-		print response
-		print type(response)
-		session['state'] = "registered"
 		session.update(dict(json.loads(response)))
+		session['state'] = "registered"
 	return session
 
 if __name__ == "__main__":

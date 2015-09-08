@@ -1,0 +1,1 @@
+./TrevorApp/deploy.sh

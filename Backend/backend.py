@@ -35,19 +35,15 @@ class user:
 			if len(newUser) != 0: #user exists
 				return "202 User Updated"
 			else: 
-				print "passedData['isAdmin'] = " + str(passedData['isAdmin']) + "\n type: " + str(type(passedData['isAdmin']))
 				if passedData['isAdmin'] == u'True':
-					passedData['isAdmin'] = 1
+					isAdmin = 1
 				else:
-					passedData['isAdmin'] = 0
-				print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-				print passedData['isAdmin']
-				print type(passedData['isAdmin'])
+					isAdmin = 0
 				db.insert('jobAppUsers', 
 					name=passedData['name'], 
 					email=passedData['email'], 
 					title=passedData['title'], 
-					isAdmin=passedData['isAdmin'], 
+					isAdmin=isAdmin, 
 					isInTable=1,
 					apiKey=makeNewApiKey()
 				)
